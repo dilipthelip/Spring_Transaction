@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.learnSpringTransaction.myapp.dao.BookShop;
 import com.learnSpringTransaction.myapp.dao.JdbcBookShop;
 import com.learnSpringTransaction.myapp.dao.TransactionalJdbcBookShop;
+import com.learnSpringTransaction.myapp.dao.TransactionalTemplateJdbcBookShop;
 
 @Configuration
 public class BookstoreConfiguration {
@@ -34,13 +36,29 @@ public class BookstoreConfiguration {
         return bookShop;
     }*/
 	
-	@Bean(name="bookShop")
+	 @Bean
+	    public TransactionTemplate transactionTemplate() {
+	        TransactionTemplate transactionTemplate = new TransactionTemplate();
+	        transactionTemplate.setTransactionManager(transactionManager());
+	        return transactionTemplate;
+	    }
+	
+	/*@Bean(name="bookShop")
     public BookShop bookShop() {
 		 TransactionalJdbcBookShop bookShop = new TransactionalJdbcBookShop();
 	      bookShop.setDataSource(dataSource());
 	      bookShop.setTransactionManager(transactionManager());
 	      return bookShop;
-    }
+    }*/
+	 
+	 @Bean(name="bookShop")
+	    public BookShop bookShop() {
+			 TransactionalTemplateJdbcBookShop bookShop = new TransactionalTemplateJdbcBookShop();
+		      bookShop.setDataSource(dataSource());
+		      bookShop.setTransactionManager(transactionManager());
+		      bookShop.setTransactionTemplate(transactionTemplate());
+		      return bookShop;
+	    }
 	
     
     @Bean
