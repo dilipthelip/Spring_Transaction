@@ -72,4 +72,10 @@ public class JdbcBookShop implements BookShop{
 		this.dataSource = dataSource;
 	}
 
+	@Override
+	public Integer purchaseReturn(String isbn, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

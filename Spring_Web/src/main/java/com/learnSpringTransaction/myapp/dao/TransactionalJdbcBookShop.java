@@ -47,4 +47,10 @@ public class TransactionalJdbcBookShop  extends JdbcDaoSupport implements BookSh
 		
 	}
 
+	@Override
+	public Integer purchaseReturn(String isbn, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
